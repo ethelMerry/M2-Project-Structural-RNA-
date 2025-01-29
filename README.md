@@ -25,7 +25,7 @@ The first part of the project focuses on training the objective function using a
 - **Full Training**: After successfully testing with 5 structures, the script was applied to the full dataset of 100 RNA structures. The results were saved in the `main_results` folder.
 
 ## Folder Structure
-- `testing/`: Contains the test_data and the results obtained (pseudoenergy scores, plots, Gibbs energy scores).
+- `testing/`: Contains the test_data, RNA puzzles data, and the results obtained (pseudoenergy scores, plots, Gibbs energy scores).
 - `main_results/`: Contains the results of the training phase with 100 RNA structures.
 
 ## Scripts
@@ -58,9 +58,9 @@ This script evaluates the predicted RNA structures using the trained objective f
 For this project, I used both **Python** and **R** for different stages of analysis.  
 
 R Dependencies for the script `PLOT.rmd`:
-`install.packages("tidyverse")`  # Includes ggplot2 and dplyr for data manipulation and visualization
-`library(ggplot2)`
-`library(tidyverse)`
+- `install.packages("tidyverse")`  # Includes ggplot2 and dplyr for data manipulation and visualization
+- `library(ggplot2)`
+- `library(tidyverse)`
 
 To run the other two scripts, you will need the following python packages:
 - `numpy`
