@@ -1,0 +1,81 @@
+---
+title: "PLOT"
+author: "Ethel Merry"
+date: "2025-01-19"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+# install.packages("tidyverse")  # if not already installed
+
+# Load required library
+library(tidyverse)
+
+# Set the directory that contains the 10 text files (AA.txt, AU.txt, etc.)
+results_dir <- "new_output"
+
+# List all *.txt files in results_dir
+pair_files <- list.files(results_dir, pattern = "\\.txt$", full.names = TRUE)
+
+# Create an empty data frame to store all pairs' data
+all_data <- data.frame()
+
+# Loop over each text file (one per pair)
+for (pf in pair_files) {
+  # Read all lines from the file with explicit encoding
+  lines <- readLines(pf, encoding = "UTF-8")
+  
+  # Remove any invalid characters (e.g., non-ASCII characters)
+  lines <- iconv(lines, from = "UTF-8", to = "ASCII", sub = "")
+  
+  # Extract the numeric scores from the lines using a regular expression
+  scores <- as.numeric(gsub(".*:\\s*", "", lines))  # Remove everything before ": "
+
+  # Extract the pair label from the filename (e.g., "AA" from "AA.txt")
+  pair_label <- tools::file_path_sans_ext(basename(pf))  # e.g., "AA"
+
+  # Create a data frame: distance_bin = 0..(length(scores)-1), score = each line
+  df <- data.frame(
+    pair = pair_label,
+    distance_bin = seq_along(scores) - 1,  # Bins 0..19
+    score = scores
+  )
+
+  # Append to the main data frame
+  all_data <- bind_rows(all_data, df)
+}
+```
+
+```{r}
+# Check if the data was loaded correctly
+print(head(all_data))  # Inspect the first few rows
+print(nrow(all_data))  # Check the number of rows
+```
+
+```{r}
+# Now plot all pairs in a faceted chart
+p <- ggplot(all_data, aes(x = distance_bin, y = score)) +
+  geom_line(color = "blue") +
+  geom_point(color = "red", size = 2) +
+  facet_wrap(~ pair, ncol = 5) +  # One facet per pair; 5 columns x 2 rows for 10 pairs
+  labs(
+    x = "Distance Bin (Å)",
+    y = "Score",
+    title = "Interaction Profiles for RNA Base Pairs"
+  ) +
+  theme_minimal()
+
+# Save the plot to a PDF
+output_pdf <- file.path(getwd(), "Interaction_Profiles.pdf")
+ggsave(output_pdf, p, width = 14, height = 8)
+
+# Print a message indicating where the plot is saved
+message("Plot saved to: ", output_pdf)
+```
+
+
+
