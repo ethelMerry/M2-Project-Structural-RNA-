@@ -16,6 +16,7 @@ The objective function considers 10 different RNA pairings:
 - AA, AC, AG, AU, CC, CG, CU, GG, GU, UU
 
 These pairings are classified into 20 distance bins, each 1 Å wide, ranging from 0 Å to 20 Å (excluded). The choice of 20 Å as the upper limit is based on the fact that interatomic interactions weaken significantly at greater distances and have minimal impact beyond this threshold.
+
 Note: The maximum scoring value is arbitrarily set to 10 to prevent overly high penalties and maintain a balanced evaluation of RNA structure stability.
 
 ## Training Script
@@ -54,7 +55,15 @@ This script evaluates the predicted RNA structures using the trained objective f
 - Sums all scores to estimate the Gibbs free energy of the RNA conformation.  
 - Outputs the final stability score of the evaluated RNA structure.  
 
-## Installation and Requirements
+## Installation
+To install and set up this project, follow the steps below:
+
+1. Clone the repository to your local machine:
+   ```bash
+   git clone https://github.com/ethelMerry/M2-Project-Structural-RNA-
+   cd M2-Project-Structural-RNA-
+   
+## Requirements
 For this project, I used both **Python** and **R** for different stages of analysis.  
 
 R Dependencies for the script `PLOT.rmd`:
