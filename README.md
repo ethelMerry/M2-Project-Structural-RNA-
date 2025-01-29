@@ -22,24 +22,24 @@ Note: The maximum scoring value is arbitrarily set to 10 to prevent overly high 
 ## Training Script
 The first part of the project focuses on training the objective function using a subset of the downloaded RNA structures.
 
-- **Testing Phase**: Initially, the script was tested with a random selection of 5 RNA structures (1ffk.pdb, 1j5a.pdb, 1jj2.pdb, 1jzx.pdb, 1jzy.pdb) from the 100 downloaded structures. Pseudo scores, plots, and Gibbs energy scores were obtained and saved in the [data directory](testing/) folder.
-- **Full Training**: After successfully testing with 5 structures, the script was applied to the full dataset of 100 RNA structures. The results were saved in the [data directory](Main_Results/) folder.
+- **Testing Phase**: Initially, the script was tested with a random selection of 5 RNA structures (1ffk.pdb, 1j5a.pdb, 1jj2.pdb, 1jzx.pdb, 1jzy.pdb) from the 100 downloaded structures. Pseudo scores, plots, and Gibbs energy scores were obtained and saved in the [testing](testing/) folder.
+- **Full Training**: After successfully testing with 5 structures, the script was applied to the full dataset of 100 RNA structures. The results were saved in the [Main_Results](Main_Results/) folder.
 
 ## Folder Structure
 ### [data directory](testing/): 
-- [data directory](testing/test_data): The 5 data initially used to test the script
-- [data directory](testing/RNA_Puzzles_data): To evaluate the estimated Gibbs free energy of the evaluated RNA conformation
-- [data directory](testing/test_output): Computed pseudoenergy scores of 5 RNA structure
-- [data directory](testing/5_Interaction_Profiles.pdf) : Interaction plot (Distance vs Score)
-- [data directory](testing/test_gibbs_free_energy_results.tsv): Estimated Gibbs energy scores
+- [test_data](testing/test_data): The 5 data initially used to test the script
+- [RNA_Puzzles_data](testing/RNA_Puzzles_data): To evaluate the estimated Gibbs free energy of the evaluated RNA conformation
+- [test_output](testing/test_output): Computed pseudoenergy scores of 5 RNA structure
+- [5_Interaction_Profiles.pdf](testing/5_Interaction_Profiles.pdf) : Interaction plot (Distance vs Score)
+- [test_gibbs_free_energy_results.tsv](testing/test_gibbs_free_energy_results.tsv): Estimated Gibbs energy scores
 
 ### [directory](Main_Results/): 
-- [directory](Main_Results/output_pseudoscores): Computed pseudoenergy scores of 100 RNA structures.
-- [directory](Main_Results/100_Interaction_Profiles.pdf): Interaction plot (Distance vs Score)
-- [data directory](Main_Results/100_test_gibbs_free_energy_results.tsv): Estimated Gibbs energy scores
+- [output_pseudoscores](Main_Results/output_pseudoscores): Computed pseudoenergy scores of 100 RNA structures.
+- [100_Interaction_Profiles.pdf](Main_Results/100_Interaction_Profiles.pdf): Interaction plot (Distance vs Score)
+- [100_test_gibbs_free_energy_results.tsv](Main_Results/100_test_gibbs_free_energy_results.tsv): Estimated Gibbs energy scores
 
 ## Scripts
-### 1. Training Script [data directory](scripts/training.py)
+### 1. Training Script [training.py](scripts/training.py)
 This script processes experimentally determined RNA structures to extract interatomic distance distributions and compute a pseudo-energy function for RNA stability evaluation.
 
 **Description:**  
@@ -48,7 +48,7 @@ This script processes experimentally determined RNA structures to extract intera
 - Computes pseudo-energy scores based on observed distance frequencies.  
 - Saves the trained objective function as scoring files for further analysis.  
 
-### 2. Plotting Script [data directory](scripts/PLOT.Rmd)
+### 2. Plotting Script [PLOT.Rmd](scripts/PLOT.Rmd)
 
 **Description:**  
 - Reads pseudo-energy score files for 10 RNA base pairings.  
@@ -56,7 +56,7 @@ This script processes experimentally determined RNA structures to extract intera
 - Plots scoring profiles as a function of interatomic distance bins.  
 - Saves the final visualization as a PDF (`5_Interaction_Profiles.pdf` and `100_Interaction_Profiles.pdf`).  
 
-### 3. Evaluation Script [data directory](scripts/scores.py)
+### 3. Evaluation Script [scores.py](scripts/scores.py)
 **Description:**  
 This script evaluates the predicted RNA structures using the trained objective function with [RNA Puzzles dataset](https://github.com/RNA-Puzzles/raw_dataset_and_for_assessment).
 - Computes interatomic distances for a given RNA structure using the same thresholds (20 Å and i, i+4).  
