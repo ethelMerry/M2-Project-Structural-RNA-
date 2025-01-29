@@ -22,7 +22,7 @@ Note: The maximum scoring value is arbitrarily set to 10 to prevent overly high 
 ## Training Script
 The first part of the project focuses on training the objective function using a subset of the downloaded RNA structures.
 
-- **Testing Phase**: Initially, the script was tested with a random selection of 5 RNA structures (1ffk.pdb, 1j5a.pdb, 1jj2.pdb, 1jzx.pdb, 1jzy.pdb) from the 100 downloaded structures. Pseudo scores, plots, and Gibbs energy scores were obtained and saved in the [testing](testing/) folder.
+- **Testing Phase**: Initially, the script was tested with a random selection of 5 RNA structures (`1ffk.pdb, 1j5a.pdb, 1jj2.pdb, 1jzx.pdb, 1jzy.pdb`) from the 100 downloaded structures. Pseudo scores, plots, and Gibbs energy scores were obtained and saved in the [testing](testing/) folder.
 - **Full Training**: After successfully testing with 5 structures, the script was applied to the full dataset of 100 RNA structures. The results were saved in the [Main_Results](Main_Results/) folder.
 
 ## Folder Structure
