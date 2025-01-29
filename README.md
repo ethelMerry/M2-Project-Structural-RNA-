@@ -1,32 +1,74 @@
 # Project - RNA Folding Objective Function
 
 ## Project Overview
+The goal of this project is to infer the Gibbs free energy of a pure RNA structure using an objective function trained on interatomic distance distributions. The function uses known experimentally determined 3D structures to compute interatomic distances of C3' atoms of nucleotides and evaluates the stability of RNA structures.
 
-This project aims to create an objective function for the RNA folding problem, where the goal is to identify the native fold of a given ribonucleotide chain. The native fold corresponds to the structure with the lowest Gibbs free energy. To estimate this energy, we will develop an objective function based on interatomic distance distributions from experimentally determined RNA 3D structures.
+## Getting Started  
+The dataset consists of 100 RNA structures downloaded from the [RCSB website](https://www.rcsb.org/stats/growth/growth-rna), filtered based on the following criteria:
 
-## Implementation Overview
+- **Polymer Entity Type**: RNA
+- **Experimental Method**: X-ray Diffraction
+- **Polymer Entity Sequence Length**: >= 2000
+- **Number of Chains**: < 3 (for greater number of intrachain pairs)
 
-The project consists of three Python scripts:
+### RNA Pairings and Distance Binning
+The objective function considers 10 different RNA pairings:  
+- AA, AC, AG, AU, CC, CG, CU, GG, GU, UU
 
-1. **Training Script**: Computes interatomic distances from a dataset of PDB files and derives scoring functions based on base-pair distance distributions.
-2. **Plotting Script**: Visualizes the scoring profiles, showing how the estimated Gibbs free energy varies with interatomic distances.
-3. **Scoring Script**: Evaluates RNA structures from the RNA-Puzzles dataset using the trained objective function.
+These pairings are classified into 20 distance bins, each 1 Å wide, ranging from 0 Å to 20 Å (excluded). The choice of 20 Å as the upper limit is based on the fact that interatomic interactions weaken significantly at greater distances and have minimal impact beyond this threshold.
+Note: The maximum scoring value is arbitrarily set to 10 to prevent overly high penalties and maintain a balanced evaluation of RNA structure stability.
 
-## Getting Started
+## Training Script
+The first part of the project focuses on training the objective function using a subset of the downloaded RNA structures.
 
-### Prerequisites
+- **Testing Phase**: Initially, the script was tested with a random selection of 5 RNA structures (1ffk.pdb, 1j5a.pdb, 1jj2.pdb, 1jzx.pdb, 1jzy.pdb) from the 100 downloaded structures. Pseudo scores, plots, and Gibbs energy scores were obtained and saved in the `testing` folder.
+- **Full Training**: After successfully testing with 5 structures, the script was applied to the full dataset of 100 RNA structures. The results were saved in the `main_results` folder.
 
-Before running the scripts, ensure you have the following dependencies installed:
+## Folder Structure
+- `testing/`: Contains the test_data and the results obtained (pseudoenergy scores, plots, Gibbs energy scores).
+- `main_results/`: Contains the results of the training phase with 100 RNA structures.
 
-- Python 3.x
-- NumPy
-- Pandas
-- Biopython
-- Matplotlib (for visualization)
-- R (for advanced plotting, if applicable)
-- ggplot2 (if using R for plotting)
+## Scripts
+### 1. Training Script (`training.py`)
+This script processes experimentally determined RNA structures to extract interatomic distance distributions and compute a pseudo-energy function for RNA stability evaluation.
 
-You can install the necessary Python packages using:
+**Description:**  
+- Extracts C3' atom coordinates from RNA structures and computes interatomic distances.  
+- Constructs interatomic distance distributions for 10 RNA base pairings.  
+- Computes pseudo-energy scores based on observed distance frequencies.  
+- Saves the trained objective function as scoring files for further analysis.  
 
+### 2. Plotting Script (`PLOT.rmd`)
+
+**Description:**  
+- Reads pseudo-energy score files for 10 RNA base pairings.  
+- Extracts and processes interaction scores from text files.  
+- Plots scoring profiles as a function of interatomic distance bins.  
+- Saves the final visualization as a PDF (`5_Interaction_Profiles.pdf` and `100_Interaction_Profiles.pdf`).  
+
+### 3. Evaluation Script (`scores.py`)
+**Description:**  
+This script evaluates the predicted RNA structures using the trained objective function with [RNA Puzzles dataset](https://github.com/RNA-Puzzles/raw_dataset_and_for_assessment).
+- Computes interatomic distances for a given RNA structure using the same thresholds (20 Å and i, i+4).  
+- Assigns a pseudo-energy score to each distance using linear interpolation.  
+- Sums all scores to estimate the Gibbs free energy of the RNA conformation.  
+- Outputs the final stability score of the evaluated RNA structure.  
+
+## Installation and Requirements
+For this project, I used both **Python** and **R** for different stages of analysis.  
+
+R Dependencies for the script `PLOT.rmd`:
+`install.packages("tidyverse")`  # Includes ggplot2 and dplyr for data manipulation and visualization
+`library(ggplot2)`
+`library(tidyverse)`
+
+To run the other two scripts, you will need the following python packages:
+- `numpy`
+- `matplotlib`
+- `scipy`
+- `biopython`
+- `pandas`
+
+You can also install them using pip:
 ```bash
-pip install numpy pandas biopython matplotlib
+pip install numpy matplotlib scipy biopython pandas
