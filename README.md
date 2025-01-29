@@ -26,14 +26,14 @@ The first part of the project focuses on training the objective function using a
 - **Full Training**: After successfully testing with 5 structures, the script was applied to the full dataset of 100 RNA structures. The results were saved in the [Main_Results](Main_Results/) folder.
 
 ## Folder Structure
-### [data directory](testing/): 
+### [testing_folder](testing/): 
 - [test_data](testing/test_data): The 5 data initially used to test the script
 - [RNA_Puzzles_data](testing/RNA_Puzzles_data): To evaluate the estimated Gibbs free energy of the evaluated RNA conformation
 - [test_output](testing/test_output): Computed pseudoenergy scores of 5 RNA structure
 - [5_Interaction_Profiles.pdf](testing/5_Interaction_Profiles.pdf) : Interaction plot (Distance vs Score)
 - [test_gibbs_free_energy_results.tsv](testing/test_gibbs_free_energy_results.tsv): Estimated Gibbs energy scores
 
-### [directory](Main_Results/): 
+### [Main_Results](Main_Results/): 
 - [output_pseudoscores](Main_Results/output_pseudoscores): Computed pseudoenergy scores of 100 RNA structures.
 - [100_Interaction_Profiles.pdf](Main_Results/100_Interaction_Profiles.pdf): Interaction plot (Distance vs Score)
 - [100_test_gibbs_free_energy_results.tsv](Main_Results/100_test_gibbs_free_energy_results.tsv): Estimated Gibbs energy scores
