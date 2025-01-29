@@ -25,8 +25,8 @@ The first part of the project focuses on training the objective function using a
 - **Full Training**: After successfully testing with 5 structures, the script was applied to the full dataset of 100 RNA structures. The results were saved in the `main_results` folder.
 
 ## Folder Structure
-- `testing/`: Contains the test_data, RNA puzzles data, and the results obtained (pseudoenergy scores, plots, Gibbs energy scores).
-- `main_results/`: Contains the results of the training phase with 100 RNA structures.
+- `testing/`: Contains the `test_data`, `RNA_Puzzles_data`, `test_output` (which are the pseudoenergy scores), and plot scoring profiles as `5_Interaction_Profiles.pdf`, and the Gibbs energy scores as `test_gibbs_score.tsv`.
+- `main_results/`: Contains all the results of the training phase (`output`, `100_Interaction_Profiles.pdf`, `gibbs_score.tsv`) with 100 RNA structures.
 
 ## Scripts
 ### 1. Training Script (`training.py`)
