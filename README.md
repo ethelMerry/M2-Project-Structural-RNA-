@@ -4,7 +4,7 @@
 The goal of this project is to infer the Gibbs free energy of a pure RNA structure using an objective function trained on interatomic distance distributions. The function uses known experimentally determined 3D structures to compute interatomic distances of C3' atoms of nucleotides and evaluates the stability of RNA structures.
 
 ## Getting Started  
-The dataset consists of 100 RNA structures downloaded from the [RCSB website](https://www.rcsb.org/stats/growth/growth-rna), filtered based on the following criteria:
+The dataset consists of 100 RNA structures-  (1FFK,1J5A,1JJ2,1JZX,1JZY,1JZZ,1K01,1K73,1K8A,1K9M,1KC8,1KD1,1KQS,1M1K,1M90,1N8R,1NJI,1NJM,1NJN,1NJO,1NJP,1NKW,1NWX,1NWY,1OND,1P9X,1Q7Y,1Q81,1Q82,1Q86,1QVF,1QVG,1S72,1SM1,1VQ4,1VQ5,1VQ6,1VQ7,1VQ8,1VQ9,1VQK,1VQL,1VQM,1VQN,1VQO,1VQP,1VVJ,1VY4,1VY5,1VY6,1VY7,1W2B,1XBP,1Y69,1YHQ,1YI2,1YIJ,1YIT,1YJ9,1YJN,1YJW,1Z58,2AAR,2D3O,2O43,2O44,2O45,2OGM,2OGN,2OGO,2OTJ,2OTL,2QA4,2QEX,2ZJP,2ZJQ,2ZJR,3CC2,3CC4,3CC7,3CCE,3CCJ,3CCL,3CCM,3CCQ,3CCR,3CCS,3CCU,3CCV,3CD6,3CF5,3CMA,3CME,3CPW,3CXC,3DLL,3FWO,3G4S,3G6E,3G71,3I55,3I56,3JQ4,3OW2,3PIO), downloaded from the [RCSB website](https://www.rcsb.org/stats/growth/growth-rna), filtered based on the following criteria:
 
 - **Polymer Entity Type**: RNA
 - **Experimental Method**: X-ray Diffraction
@@ -22,15 +22,24 @@ Note: The maximum scoring value is arbitrarily set to 10 to prevent overly high 
 ## Training Script
 The first part of the project focuses on training the objective function using a subset of the downloaded RNA structures.
 
-- **Testing Phase**: Initially, the script was tested with a random selection of 5 RNA structures (1ffk.pdb, 1j5a.pdb, 1jj2.pdb, 1jzx.pdb, 1jzy.pdb) from the 100 downloaded structures. Pseudo scores, plots, and Gibbs energy scores were obtained and saved in the `testing` folder.
-- **Full Training**: After successfully testing with 5 structures, the script was applied to the full dataset of 100 RNA structures. The results were saved in the `main_results` folder.
+- **Testing Phase**: Initially, the script was tested with a random selection of 5 RNA structures (1ffk.pdb, 1j5a.pdb, 1jj2.pdb, 1jzx.pdb, 1jzy.pdb) from the 100 downloaded structures. Pseudo scores, plots, and Gibbs energy scores were obtained and saved in the [data directory](testing/) folder.
+- **Full Training**: After successfully testing with 5 structures, the script was applied to the full dataset of 100 RNA structures. The results were saved in the [data directory](Main_Results/) folder.
 
 ## Folder Structure
-- `testing/`: Contains the `test_data`, `RNA_Puzzles_data`, `test_output` (which are the pseudoenergy scores), and plot scoring profiles as `5_Interaction_Profiles.pdf`, and the Gibbs energy scores as `test_gibbs_score.tsv`.
-- `main_results/`: Contains all the results of the training phase (`output`, `100_Interaction_Profiles.pdf`, `gibbs_score.tsv`) with 100 RNA structures.
+### [data directory](testing/): 
+- [data directory](testing/test_data): The 5 data initially used to test the script
+- [data directory](testing/RNA_Puzzles_data): To evaluate the estimated Gibbs free energy of the evaluated RNA conformation
+- [data directory](testing/test_output): Computed pseudoenergy scores of 5 RNA structure
+- [data directory](testing/5_Interaction_Profiles.pdf) : Interaction plot (Distance vs Score)
+- [data directory](testing/test_gibbs_free_energy_results.tsv): Estimated Gibbs energy scores
+
+### [directory](Main_Results/): 
+- [directory](Main_Results/output_pseudoscores): Computed pseudoenergy scores of 100 RNA structures.
+- [directory](Main_Results/100_Interaction_Profiles.pdf): Interaction plot (Distance vs Score)
+- [data directory](Main_Results/100_test_gibbs_free_energy_results.tsv): Estimated Gibbs energy scores
 
 ## Scripts
-### 1. Training Script (`training.py`)
+### 1. Training Script [data directory](scripts/training.py)
 This script processes experimentally determined RNA structures to extract interatomic distance distributions and compute a pseudo-energy function for RNA stability evaluation.
 
 **Description:**  
@@ -39,7 +48,7 @@ This script processes experimentally determined RNA structures to extract intera
 - Computes pseudo-energy scores based on observed distance frequencies.  
 - Saves the trained objective function as scoring files for further analysis.  
 
-### 2. Plotting Script (`PLOT.rmd`)
+### 2. Plotting Script [data directory](scripts/PLOT.Rmd)
 
 **Description:**  
 - Reads pseudo-energy score files for 10 RNA base pairings.  
@@ -47,7 +56,7 @@ This script processes experimentally determined RNA structures to extract intera
 - Plots scoring profiles as a function of interatomic distance bins.  
 - Saves the final visualization as a PDF (`5_Interaction_Profiles.pdf` and `100_Interaction_Profiles.pdf`).  
 
-### 3. Evaluation Script (`scores.py`)
+### 3. Evaluation Script [data directory](scripts/scores.py)
 **Description:**  
 This script evaluates the predicted RNA structures using the trained objective function with [RNA Puzzles dataset](https://github.com/RNA-Puzzles/raw_dataset_and_for_assessment).
 - Computes interatomic distances for a given RNA structure using the same thresholds (20 Å and i, i+4).  
